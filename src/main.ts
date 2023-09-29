@@ -1,1 +1,5 @@
-console.log('hello typescript starter');
+
+async function main(){
+
+}
+main().catch(console.error);
