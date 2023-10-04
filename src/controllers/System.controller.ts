@@ -2,18 +2,22 @@ import { container } from '@src/container';
 import { SystemService } from '@src/services/system.service';
 import { Controller } from '@src/types/controller';
 import express, { Express, Request, Response, Router } from 'express';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
+
+@injectable()
 export class SystemController implements Controller {
   router: Router = express.Router();
   selfRouter = express.Router();
   basePath = '/system';
-  private systemService: SystemService;
+
+  // @inject('SystemService')
+  // private systemService: SystemService;
   // constructor(@inject(SystemService) private systemService: SystemService) {
-  constructor() {
-    // constructor(@inject(SystemService) systemService: SystemService) {
+  // constructor() {
+  constructor(@inject(SystemService) private systemService: SystemService) {
     this.initRoutes();
     // this.systemService = systemService;
-    this.systemService = container.get(SystemService);
+    // this.systemService = container.get(SystemService);
     // this._systemService = systemService;
   }
 
