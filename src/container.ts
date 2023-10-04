@@ -9,7 +9,7 @@ import * as services from './services';
 // const container = new Container({ defaultScope: 'Singleton' });
 const container = new Container({ autoBindInjectable: true, defaultScope: 'Singleton' });
 
-// autoProvide(container, services);
+autoProvide(container, services);
 
 // container.bind<SystemService>(SystemService).toSelf();
 

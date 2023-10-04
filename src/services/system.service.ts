@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { provide } from 'inversify-binding-decorators';
 
 // @provide(SystemService)
-@injectable()
+// @injectable()
 export class SystemService implements ISystemService {
   constructor() {}
   hello = () => {
