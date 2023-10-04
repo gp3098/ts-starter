@@ -1,7 +1,8 @@
 import { ISystemService } from './../types/system.d';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { provide } from 'inversify-binding-decorators';
 
+// @provide(SystemService)
 @injectable()
 export class SystemService implements ISystemService {
   constructor() {}

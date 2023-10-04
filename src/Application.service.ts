@@ -1,3 +1,4 @@
+import { SystemService } from '@src/services/system.service';
 import { Controller } from '@src/types/controller';
 import express, { Express } from 'express';
 import { createBullBoard } from '@bull-board/api';
@@ -10,13 +11,18 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import { inject } from 'inversify';
+import { container } from './container';
 
 export class Application {
   express: Express;
+  // systemService: SystemService;
   constructor(props: { controllers: Controller[] }) {
     this.express = express();
     this.initBullMQ();
     this.initRoutes();
+    // console.log('container', container);
+    // this.systemService = container.get(SystemService);
     this.initControllers(props.controllers);
   }
   initBullMQ() {
