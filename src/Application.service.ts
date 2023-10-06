@@ -1,11 +1,11 @@
-import { SystemService } from '@src/services/system.service';
-import { Controller } from '@src/types/controller';
+import { SystemService } from '@/src/services/system.service';
+import { Controller } from '@/src/types/controller';
 import express, { Express } from 'express';
 import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 import { Queue as QueueMQ } from 'bullmq';
-import { QUEUES } from '@src/constants';
+import { QUEUES } from '@/src/constants';
 import config from './config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';

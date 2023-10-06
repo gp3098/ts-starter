@@ -1,6 +1,6 @@
-import { container } from '@src/container';
-import { SystemService } from '@src/services/system.service';
-import { Controller } from '@src/types/controller';
+import { container } from '@/src/container';
+import { SystemService } from '@/src/services/system.service';
+import { Controller } from '@/src/types/controller';
 import express, { Express, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 
