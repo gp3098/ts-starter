@@ -33,6 +33,7 @@ import { getRouteInfo } from 'inversify-express-utils';
 // declare metadata by @controller annotation
 import '@/src/controllers/SystemController';
 import { lazyInject } from './ioc';
+import { A, B } from './services';
 
 @injectable()
 export class App {
@@ -42,6 +43,12 @@ export class App {
   // controllers: any;
   server!: InversifyExpressServer;
   serverPort: number = 8888;
+
+  @inject(A)
+  a!: A;
+
+  @inject(B)
+  b!: B;
 
   // @inject(HCLog)
   // private logger!: HCLog;
@@ -79,7 +86,12 @@ export class App {
   //   // this.init();
   // }
 
+  // constructor(@inject(A) private a: A) {
+  //   // this.init();
+  // }
   async init() {
+    this.a.hello();
+    this.b.hello()
     this.initHttpModule();
     await this.initDBModule();
     await this.initServices();
