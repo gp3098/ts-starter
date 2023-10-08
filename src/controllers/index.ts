@@ -1,1 +1,1 @@
-export * from './System.controller';
+export * from './SystemController';
