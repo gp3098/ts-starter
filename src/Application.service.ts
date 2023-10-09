@@ -1,14 +1,4 @@
 import { SystemController } from '@/src/controllers/SystemController';
-// import { Scheduler as SchedulerService } from '@src/instance/Scheduler';
-// import { LibraryInfo as LibraryInfoService } from '@src/instance/LibraryInfo';
-// import { ZigbeeGateways } from '@src/instance/ZigbeeGateways';
-// import {
-//   SortSocket as SortSocketService,
-//   ConfigService as ConfigService,
-//   System as SystemService,
-// } from '@src/instance';
-// import { HCDB } from '@src/db';
-// import { HCLog } from '@src/helper/logger';
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
@@ -17,13 +7,8 @@ import cors from 'cors';
 import compression from 'compression';
 import morgan from 'morgan';
 import moment from 'moment';
-// import { Auth } from '@src/helper/auth';
 import http from 'http';
 import 'express-async-errors';
-// import { globalObject } from '@src/instance/globalObject';
-// import { createBullBoard } from '@bull-board/api';
-// import { ExpressAdapter } from '@bull-board/express';
-// import type { HCTypes } from '@root/global';
 import { injectable, inject, LazyServiceIdentifer } from 'inversify';
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
 import { container } from '@/src/ioc/container';
@@ -32,91 +17,31 @@ import { getRouteInfo } from 'inversify-express-utils';
 
 // declare metadata by @controller annotation
 import '@/src/controllers/SystemController';
-// import { lazyInject } from '@/src/ioc';
-import { lazyInject } from '@/src/ioc/container';
 import { A } from './services/a.service';
 import { B } from './services/b.service';
-import { TYPES } from '@/src/ioc';
 
 @injectable()
 export class App {
   socket: http.Server | null = null;
-  // queueUIBasePath = '/admin/queues';
   app: any;
-  // controllers: any;
   server!: InversifyExpressServer;
   serverPort: number = 8888;
 
-  // @inject(new LazyServiceIdentifer(() => TYPES.A))
-  // @lazyInject('A')
-  // @inject(A)
-  // a!: A;
-
-  // @inject(new LazyServiceIdentifer(() => TYPES.B))
-  // b!: B;
-  // @inject(A)
-  // a!: A;
-
   @inject(B)
   b!: B;
-  // @lazyInject(B)
-  // b!: B;
 
-  // @lazyInject(A)
   @inject(A)
   a!: A;
 
-  // @inject(HCLog)
-  // private logger!: HCLog;
-  // @inject('config')
-  // private config!: HCTypes.Config;
-  // @inject(Auth)
-  // private auth!: Auth;
-
-  // @inject(HCDB)
-  // private db!: HCDB;
-
-  // @inject(SortSocketService)
-  // sortSocketService!: SortSocketService;
-
-  // @inject(ConfigService)
-  // configService!: ConfigService;
-
-  // @inject(ZigbeeGateways)
-  // zigbeeGateways!: ZigbeeGateways;
-
-  // @inject(LibraryInfoService)
-  // libraryInfoService!: LibraryInfoService;
-
-  // @inject(SchedulerService)
-  // schedulerService!: SchedulerService;
-
-  // @lazyInject(SystemService)
-  // systemService!: SystemService;
-
-  // constructor(
-  //   @inject(HCLog) private logger: HCLog,
-  //   @inject('config') private config: HCTypes.Config,
-  //   @inject(Auth) private auth: Auth,
-  // ) {
-  //   // this.init();
-  // }
-  constructor() // @inject(new LazyServiceIdentifer(() => TYPES.A)) private a: A // @lazyInject(TYPES.A) private a: A // @lazyInject(TYPES.B) private b: B, // @inject(new LazyServiceIdentifer(() => TYPES.B)) private b: B, // @inject(A) private a: A // @inject(TYPES.B) private b: B
-  {
+  constructor() {
     this.init();
   }
 
-  // constructor() {
-  //   this.init();
-  // }
   async init() {
-    // this.b.hello();
     setTimeout(() => {
       this.a.hello();
       this.b.hello();
     }, 0);
-    // this.a.hello();
-    // this.b.hello();
     this.initHttpModule();
     await this.initDBModule();
     await this.initServices();
@@ -125,12 +50,7 @@ export class App {
     this.server = new InversifyExpressServer(container, null, { rootPath: '/api' });
     this.handleProcessEvent();
     this.initEnvTimezone();
-    // this.initializeControllers(this.controllers);
     this.initializeMiddlewares();
-    // const app = this.server.build();
-    // app.listen(this.config.serverPort, () => {
-    //   this.logger.info(`server is running at http://127.0.0.1:${this.config.serverPort}`);
-    // });
     this.listen();
   }
 
