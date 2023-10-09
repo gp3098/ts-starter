@@ -2,7 +2,7 @@ import 'reflect-metadata';
 // import { Application } from '@/src/Application.service';
 import { SystemController } from '@/src/controllers/SystemController';
 // import { SystemService } from '@/src/services/system.service';
-import { container } from '@/src/container';
+import { container } from '@/src/ioc';
 import { App } from './Application.service';
 
 // const systemService = new SystemService();
@@ -11,7 +11,7 @@ import { App } from './Application.service';
 // export const app = new Application({ controllers });
 async function main() {
   const app = container.get(App);
-  app.init();
+  // app.init();
 }
 
 main().catch(console.error);

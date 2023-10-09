@@ -24,7 +24,7 @@ import 'express-async-errors';
 // import { createBullBoard } from '@bull-board/api';
 // import { ExpressAdapter } from '@bull-board/express';
 // import type { HCTypes } from '@root/global';
-import { injectable, inject } from 'inversify';
+import { injectable, inject, LazyServiceIdentifer } from 'inversify';
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
 import { container } from '@/src/ioc/container';
 import * as prettyjson from 'prettyjson';
@@ -32,8 +32,11 @@ import { getRouteInfo } from 'inversify-express-utils';
 
 // declare metadata by @controller annotation
 import '@/src/controllers/SystemController';
-import { lazyInject } from './ioc';
-import { A, B } from './services';
+// import { lazyInject } from '@/src/ioc';
+import { lazyInject } from '@/src/ioc/container';
+import { A } from './services/a.service';
+import { B } from './services/b.service';
+import { TYPES } from '@/src/ioc';
 
 @injectable()
 export class App {
@@ -44,11 +47,24 @@ export class App {
   server!: InversifyExpressServer;
   serverPort: number = 8888;
 
-  @inject(A)
-  a!: A;
+  // @inject(new LazyServiceIdentifer(() => TYPES.A))
+  // @lazyInject('A')
+  // @inject(A)
+  // a!: A;
+
+  // @inject(new LazyServiceIdentifer(() => TYPES.B))
+  // b!: B;
+  // @inject(A)
+  // a!: A;
 
   @inject(B)
   b!: B;
+  // @lazyInject(B)
+  // b!: B;
+
+  // @lazyInject(A)
+  @inject(A)
+  a!: A;
 
   // @inject(HCLog)
   // private logger!: HCLog;
@@ -85,13 +101,22 @@ export class App {
   // ) {
   //   // this.init();
   // }
+  constructor() // @inject(new LazyServiceIdentifer(() => TYPES.A)) private a: A // @lazyInject(TYPES.A) private a: A // @lazyInject(TYPES.B) private b: B, // @inject(new LazyServiceIdentifer(() => TYPES.B)) private b: B, // @inject(A) private a: A // @inject(TYPES.B) private b: B
+  {
+    this.init();
+  }
 
-  // constructor(@inject(A) private a: A) {
-  //   // this.init();
+  // constructor() {
+  //   this.init();
   // }
   async init() {
-    this.a.hello();
-    this.b.hello()
+    // this.b.hello();
+    setTimeout(() => {
+      this.a.hello();
+      this.b.hello();
+    }, 0);
+    // this.a.hello();
+    // this.b.hello();
     this.initHttpModule();
     await this.initDBModule();
     await this.initServices();
