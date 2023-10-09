@@ -33,15 +33,13 @@ export class App {
   @inject(A)
   a!: A;
 
-  constructor() {
-    this.init();
-  }
+  // constructor() {
+  //   this.init();
+  // }
 
   async init() {
-    setTimeout(() => {
-      this.a.hello();
-      this.b.hello();
-    }, 0);
+    this.a.hello();
+    this.b.hello();
     this.initHttpModule();
     await this.initDBModule();
     await this.initServices();
