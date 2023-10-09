@@ -4,9 +4,7 @@ import { App } from './Application.service';
 
 async function main() {
   const app = container.get(App);
-  setTimeout(() => {
-    app.init();
-  }, 0);
+  app.init();
 }
 
 main().catch(console.error);
