@@ -23,7 +23,7 @@ export class SystemController implements interfaces.Controller {
 
   // @inject('SystemService')
   // private systemService: SystemService;
-  // constructor(@inject(SystemService) private systemService: SystemService) {
+  constructor(@inject(SystemService) private systemService: SystemService) {}
   // constructor() {
   // constructor(@inject(SystemService) private systemService: SystemService) {
   //   this.initRoutes();
@@ -38,7 +38,6 @@ export class SystemController implements interfaces.Controller {
   // }
   @httpGet('/hello')
   async hello(req: Request, res: Response) {
-    return 'hello';
-    // res.send(this.systemService.hello());
+    return this.systemService.hello();
   }
 }
